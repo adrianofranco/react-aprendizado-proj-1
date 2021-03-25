@@ -5,9 +5,10 @@
     border: none;
     padding: 15px;
     cursor: pointer;
+    
 }
 
 .button:disabled{
     background: grey;
-    cursor: not-allowed;
+cursor: not-allowed;
 }

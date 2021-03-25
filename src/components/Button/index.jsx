@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 
 export const Button = ({ text, onClick, id, disabled }) => (
   <button 

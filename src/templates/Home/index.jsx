@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Button } from "../../components/Button";
 import { Posts } from "../../components/Posts";
+import { TextInput } from "../../components/TextInput";
 import { loadPosts } from "../../utils/load-posts";
-import "./styles.css";
-
-
+import "./styles.scss";
 
 export class Home extends Component {
   state = {
@@ -13,6 +12,7 @@ export class Home extends Component {
     allPosts: [],
     page: 0,
     postsPerPage: 2,
+    searchValue: "",
   };
 
   async componentDidMount() {
@@ -36,18 +36,42 @@ export class Home extends Component {
     posts.push(...nextPosts);
 
     this.setState({ posts, page: nextPage });
-    
+  };
+
+  handleChange = (e) => {
+    const { value } = e.target;
+
+    this.setState({ searchValue: value });
   };
 
   render() {
-    const { posts, page, postsPerPage, allPosts } = this.state;
+    const { posts, page, postsPerPage, allPosts, searchValue } = this.state;
     const noMorePosts = page + postsPerPage >= allPosts.length;
+
+    const filteredPosts = !!searchValue
+      ? allPosts.filter((post) => {
+          return post.title.toLowerCase().includes(searchValue.toLowerCase());
+        })
+      : posts;
 
     return (
       <section className="container">
-        <Posts posts={posts} />
+        <div className="search-container">
+          {!!searchValue && <h1> Search value: {searchValue}</h1>}
+          <TextInput handleChange={this.handleChange} value={searchValue} />
+        </div>
+        {filteredPosts.length > 0 && <Posts posts={filteredPosts} />}
+        {filteredPosts.length === 0 && <h1>Sem posts</h1>}
+
         <div className="button-container">
-        <Button disabled={noMorePosts} onClick={this.loadMorePosts} id="butao-1" text="Botão" />
+          {!searchValue && (
+            <Button
+              disabled={noMorePosts}
+              onClick={this.loadMorePosts}
+              id="butao-1"
+              text="Botão"
+            />
+          )}
         </div>
       </section>
     );
