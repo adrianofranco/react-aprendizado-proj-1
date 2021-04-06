@@ -40,7 +40,7 @@ export const Home = () => {
     const postsAndPhotos = await loadPosts();
     setPosts(postsAndPhotos.slice(page, postsPerPage));
     setAllPosts(postsAndPhotos);
-  }, []);
+  });
 
   useEffect(() => {
     console.log("teste");
