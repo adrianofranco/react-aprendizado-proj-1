@@ -1,5 +1,4 @@
 describe('<Home />', () => {
-
   it('dummy test one', () => {
     expect(1).toBe(1);
   });
@@ -11,7 +10,4 @@ describe('<Home />', () => {
   it('dummy test three', () => {
     expect(1).toBe(1);
   });
-  
-
 });
-
